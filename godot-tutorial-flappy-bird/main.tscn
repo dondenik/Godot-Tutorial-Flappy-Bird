@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://3558gsf6s6tv"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_lgss6"]
+[ext_resource type="Texture2D" uid="uid://dfub80ty2mm3y" path="res://bird.png" id="1_wej08"]
+[ext_resource type="Script" path="res://bird.gd" id="2_ai0u7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5yujm"]
+radius = 263.46
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_lgss6")
+
+[node name="Bird" type="Sprite2D" parent="."]
+texture = ExtResource("1_wej08")
+script = ExtResource("2_ai0u7")
+
+[node name="Area2D" type="Area2D" parent="Bird"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bird/Area2D"]
+shape = SubResource("CircleShape2D_5yujm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.1, 0.1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="score_ticker" type="RichTextLabel" parent="."]
+z_index = 1
+offset_left = 3173.0
+offset_top = -3164.0
+offset_right = 3198.0
+offset_bottom = -3139.0
+scale = Vector2(100, 100)
+
+[node name="crash" type="RichTextLabel" parent="."]
+visible = false
+z_index = 1
+offset_left = -5346.0
+offset_top = -1401.0
+offset_right = -5236.0
+offset_bottom = -1351.0
+scale = Vector2(100, 100)
+text = "You Crashed!"
+fit_content = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

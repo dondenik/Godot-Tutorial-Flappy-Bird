@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7y067riml3ve"]
+
+[ext_resource type="Script" path="res://pipe.gd" id="1_rur8u"]
+[ext_resource type="Texture2D" uid="uid://dvj6nqo1j6pub" path="res://pipe-head.png" id="2_s5xp3"]
+[ext_resource type="Texture2D" uid="uid://sj0f8axl3m8v" path="res://pipe-base.png" id="3_gr6d4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltys0"]
+size = Vector2(560, 640)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_rur8u")
+
+[node name="Head" type="Sprite2D" parent="."]
+texture = ExtResource("2_s5xp3")
+
+[node name="Area2D" type="Area2D" parent="Head"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Area2D"]
+shape = SubResource("RectangleShape2D_ltys0")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("3_gr6d4")
+
+[node name="Area2D" type="Area2D" parent="Base"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Area2D"]
+shape = SubResource("RectangleShape2D_ltys0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="area_entered" from="Head/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Base/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
